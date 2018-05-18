@@ -16,5 +16,5 @@ ENV ROOT_PASSWORD passw0rd!
 ENV CONDA_PKG https://github.com/jjhelmus/berryconda/releases/download/v2.0.0/Berryconda2-2.0.0-Linux-armv7l.sh
 
 # Enable systemd init system in the container, so it never closes
-ENV INITSYSTEM on
+#ENV INITSYSTEM on
 

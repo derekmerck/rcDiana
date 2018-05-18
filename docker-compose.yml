@@ -25,7 +25,7 @@ services:
     image: conda
     depends_on:
       - sshd
-#    init: true
+    init: true
     restart: always
     privileged: true
     ports:
@@ -42,7 +42,7 @@ services:
     image: orthanc
     depends_on:
       - sshd
-#    init: true
+    init: true
     restart: always
     privileged: true
     ports:
