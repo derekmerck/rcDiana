@@ -5,14 +5,12 @@ MAINTAINER Derek Merck <derek_merck@brown.edu>
 # Need to setup shell to see environment variables
 RUN echo ". <(xargs -0 bash -c 'printf \"export %q\n\" \"\$@\"' -- < /proc/1/environ)" >> /root/.profile
 
-COPY ./*.sh /usr/src/app/config
+COPY ../conf*.sh /usr/src/app/config/
 
-CMD for f in /usr/src/app/config/*.sh; do bash "$f" -H && tail -f /dev/null
+COPY ../start.sh /usr/src/app
+CMD /bin/bash /usr/src/app/start.sh
 
-# CMD service ssh start && tail -F /dev/null
-# CMD ["sh", "-c", "tail -f /dev/null"]
-
-ENV RESIN_DEVICE_NAME_AT_INIT rcDiana-a7h
+ENV RESIN_DEVICE_NAME_AT_INIT rcDiana-x86
 ENV ORTHANC_PASSWORD 0rthanC!
 ENV ROOT_PASSWORD passw0rd!
 ENV CONDA_PKG https://github.com/jjhelmus/berryconda/releases/download/v2.0.0/Berryconda2-2.0.0-Linux-armv7l.sh

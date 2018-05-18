@@ -1,4 +1,3 @@
-#FROM debian:stretch
 FROM base
 MAINTAINER Derek Merck <derek_merck@brown.edu>
 

@@ -1,4 +1,3 @@
-#FROM debian:stretch
 FROM sshd
 MAINTAINER Derek Merck <derek_merck@brown.edu>
 

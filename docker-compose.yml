@@ -1,13 +1,12 @@
-version: '2.2'
+version: '2.1'
 
 #volumes:
 #  diana-data: {}
 
 services:
   base:
-    build: ./base
-      dockerfile: Dockerfile-x86  # for testing and x86 builds
-#      dockerfile: Dockerfile-a7h  # for arm7 builds
+    build: ./base/x86
+#    build: ./base/arm7h
     image: base
     command: "/bin/bash"  # Exit immediately
 
