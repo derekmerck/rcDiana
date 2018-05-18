@@ -7,8 +7,8 @@ services:
   base:
     build:
       context: base
-      dockerfile: x86/Dockerfile
-#    dockerfile: arm7h/Dockerfile
+#      dockerfile: x86/Dockerfile
+      dockerfile: arm7h/Dockerfile
     image: base
     command: "/bin/bash"  # Exit immediately
 
