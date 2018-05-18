@@ -5,10 +5,10 @@ version: '2.1'
 
 services:
   base:
-    build:
-      context: base
+#    build:
+#      context: base
 #      dockerfile: x86/Dockerfile
-      dockerfile: arm7h/Dockerfile
+    build: ./arm7h
     image: base
     command: "/bin/bash"  # Exit immediately
 
