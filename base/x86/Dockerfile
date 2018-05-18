@@ -1,9 +1,9 @@
 FROM debian:stretch
 MAINTAINER Derek Merck <derek_merck@brown.edu>
 
-COPY ../conf*.sh /usr/src/app/config/
+COPY ./conf*.sh /usr/src/app/config/
 
-COPY ../start.sh /usr/src/app
+COPY ./start.sh /usr/src/app/
 CMD /bin/bash /usr/src/app/start.sh
 
 ENV RESIN_DEVICE_NAME_AT_INIT rcDiana-x86

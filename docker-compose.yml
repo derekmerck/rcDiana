@@ -1,12 +1,14 @@
-version: '2.1'
+version: '2.2'
 
 #volumes:
 #  diana-data: {}
 
 services:
   base:
-    build: ./base/x86
-#    build: ./base/arm7h
+    build:
+      context: base
+      dockerfile: x86/Dockerfile
+#    dockerfile: arm7h/Dockerfile
     image: base
     command: "/bin/bash"  # Exit immediately
 
@@ -19,7 +21,7 @@ services:
     command: "/bin/bash"  # Exit immediately
 
   conda:
-    build: ./conda_g
+    build: ./conda
     image: conda
     depends_on:
       - sshd
@@ -36,7 +38,7 @@ services:
 # Can further derive from conda for specific services (diana-mon)
 
   orthanc:
-    build: ./orthanc_g
+    build: ./orthanc
     image: orthanc
     depends_on:
       - sshd
