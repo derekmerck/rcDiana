@@ -10,6 +10,7 @@ services:
 #      dockerfile: x86/Dockerfile
     build: ./base/arm7h
     image: base
+    privileged: True
     command: "/bin/bash"  # Exit immediately
 
   # Can skip ssh in final build if useful by depending conda and orthanc directly on base
@@ -18,6 +19,7 @@ services:
     image: sshd
     depends_on:
       - base
+    privileged: True
     command: "/bin/bash"  # Exit immediately
 
   conda:
@@ -25,7 +27,7 @@ services:
     image: conda
     depends_on:
       - sshd
-    init: true
+#    init: true
     restart: always
     privileged: true
     ports:
@@ -42,9 +44,9 @@ services:
     image: orthanc
     depends_on:
       - sshd
-    init: true
+#    init: true
     restart: always
-    privileged: true
+    privileged: True
     ports:
       - "480:8042"
       - "442:4242"
