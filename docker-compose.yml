@@ -1,0 +1,57 @@
+version: '2.2'
+
+#volumes:
+#  diana-data: {}
+
+services:
+  base:
+    build: ./base
+      dockerfile: Dockerfile-x86  # for testing and x86 builds
+#      dockerfile: Dockerfile-a7h  # for arm7 builds
+    image: base
+    command: "/bin/bash"  # Exit immediately
+
+  # Can skip ssh in final build if useful by depending conda and orthanc directly on base
+  sshd:
+    build: ./sshd
+    image: sshd
+    depends_on:
+      - base
+    command: "/bin/bash"  # Exit immediately
+
+  conda:
+    build: ./conda_g
+    image: conda
+    depends_on:
+      - sshd
+    init: true
+    restart: always
+    privileged: true
+    ports:
+      - "322:22"
+
+#   volumes:
+#     - 'diana-data:/usr/src/app'
+
+
+# Can further derive from conda for specific services (diana-mon)
+
+  orthanc:
+    build: ./orthanc_g
+    image: orthanc
+    depends_on:
+      - sshd
+    init: true
+    restart: always
+    privileged: true
+    ports:
+      - "480:8042"
+      - "442:4242"
+      - "422:22"
+
+#   volumes:
+#     - 'diana-data:/var/lib/orthanc/db'
+
+
+# Can further derive from orthanc for specific services (autorouting)
+
