@@ -1,0 +1,15 @@
+# Reference scratch builder for aarch64 devices, unsynced with mainline
+
+version: "2.1"
+
+services:
+
+  conda:
+    build: ./conda_aarch64
+    image: conda
+    privileged: True
+
+  orthanc:
+    build: ./orthanc_aarch64
+    image: orthanc
+    privileged: True

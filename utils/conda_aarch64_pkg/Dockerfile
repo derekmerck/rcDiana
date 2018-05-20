@@ -8,6 +8,7 @@ RUN git clone https://github.com/conda/constructor.git \
     && sed -i "s/yaml.load/yaml.safe_load/" /opt/conda/lib/python2.7/site-packages/constructor/construct.py
 
 RUN cd /constructor/examples/jetsonconda \
+    && sed -i "s/python 3.6/python 2.7/" construct.yaml \
     && constructor . --platform=linux-aarch64
 
 CMD ["sh", "-c","cp /constructor/examples/jetsonconda/*.sh /host/pkg/"]

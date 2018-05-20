@@ -1,34 +1,20 @@
 # Project builder for resin.io devices
 # Configure with image tags for appropriate architectures
 
-version: "2.1"
-
-services:
+  orthanc:
+    image: derekmerck/rcdiana:${RCD_ARCH}_orthanc
+#    init: true
+    restart: always
+    privileged: true
+    ports:
+      - "422:22"
+      - "4242:4242"
+      - "8042:8042"
 
   conda:
-    build: ./conda/aarch64
-    image: conda
-    privileged: True
-
-  orthanc:
-    build: ./orthanc/aarch64
-    image: orthanc
-    privileged: True
-
-#  orthanc:
-#    image: derekmerck/rcdiana:${RCD_ARCH}_orthanc
-##    init: true
-#    restart: always
-#    privileged: true
-#    ports:
-#      - "422:22"
-#      - "4242:4242"
-#      - "8042:8042"
-#
-#  conda:
-#    image: derekmerck/rcdiana:${RCD_ARCH}_conda
-##    init: true
-#    restart: always
-#    privileged: true
-#    ports:
-#      - "322:22"
+    image: derekmerck/rcdiana:${RCD_ARCH}_conda
+#    init: true
+    restart: always
+    privileged: true
+    ports:
+      - "322:22"

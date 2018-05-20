@@ -52,6 +52,17 @@ services:
       - "4242:4242"
       - "422:22"
 
+  opencv:
+    build:
+      context: ./opencv
+      args:
+        - RCD_ARCH
+    image: rcdiana:${RCD_ARCH}_opencv
+#    depends_on:
+#      - conda    init: true
+    restart: always
+    privileged: true
+
 #   volumes:
 #     - 'diana-data:/var/lib/orthanc/db'
 

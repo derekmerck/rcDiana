@@ -30,4 +30,4 @@ RUN wget --quiet "$CONDA_PKG" -O ~/conda.sh && \
 
 # In a new shell
 # Path not set right in aarch64
-# RUN conda update -y conda
+RUN conda update -y conda || echo "Error: Failed to update conda (check path?)"
