@@ -6,28 +6,28 @@ MAINTAINER Derek Merck <derek_merck@brown.edu>
 
 # Add cmake config
 COPY xcmake.sh /usr/src/app/
-#
-## Install dependencies
-#RUN apt-get update && apt-get install -yq --no-install-recommends \
-#        build-essential \
-#        cmake \
-#        pkg-config \
-#        libtiff5-dev \
-#        libopenjp2-7-dev \
-#        libpng-dev \
-#        libavcodec-dev \
-#        libavformat-dev \
-#        libswscale-dev \
-#        libv4l-dev \
-#        libxvidcore-dev \
-#        libx264-dev \
-#        libgtk-3-dev \
-#        libatlas-base-dev \
-#        gfortran \
-#        python2.7-dev \
-#   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Source pulls
+# Install dependencies
+RUN apt-get update && apt-get install -yq --no-install-recommends \
+        build-essential \
+        cmake \
+        pkg-config \
+        libtiff5-dev \
+        libopenjp2-7-dev \
+        libpng-dev \
+        libavcodec-dev \
+        libavformat-dev \
+        libswscale-dev \
+        libv4l-dev \
+        libxvidcore-dev \
+        libx264-dev \
+        libgtk-3-dev \
+        libatlas-base-dev \
+        gfortran \
+        python2.7-dev \
+   && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Source pulls and build
 RUN mkdir /opt/opencv \
    && cd /opt/opencv \
    && git clone https://github.com/opencv/opencv.git \
