@@ -8,9 +8,8 @@ services:
 # Setup build matrix
 env:
 #  - RCD_ARCH=aarch64  # Jetson TX2
-
-  - RCD_ARCH=amd64 RCD_TARGET=conda
-  - RCD_ARCH=amd64 RCD_TARGET=orthan
+#  - RCD_ARCH=amd64 RCD_TARGET=conda
+#  - RCD_ARCH=amd64 RCD_TARGET=orthanc
   - RCD_ARCH=amd64 RCD_TARGET=opencv
 
 #  - RCD_ARCH=armv7hf  # Raspberry Pi 3
