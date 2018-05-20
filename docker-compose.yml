@@ -6,7 +6,7 @@ version: 2.1
 services:
 
   orthanc:
-    image: derekmerck/orthanc:armv7_orthanc
+    image: derekmerck/rcdiana:armv7_orthanc
 #    init: true
     restart: always
     privileged: true
@@ -16,7 +16,7 @@ services:
       - "8042:8042"
 
   conda:
-    image: derekmerck/conda:armv7_conda
+    image: derekmerck/rcdiana:armv7_conda
 #    init: true
     restart: always
     privileged: true
