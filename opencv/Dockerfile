@@ -24,9 +24,6 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
         python2.7-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Add cmake config
-COPY xcmake.sh /usr/src/app/
-
 # Source pulls
 RUN mkdir /opt/opencv \
    && cd /opt/opencv \
@@ -36,9 +33,13 @@ RUN mkdir /opt/opencv \
    && cd /opt/opencv/opencv_contrib; git checkout 3.4.1 \
 
 # Do a long make
-RUN mkdir /opt/opencv/build \
-   && cd /opt/opencv/build \
-   && /bin/bash /usr/src/app/xcmake.sh \
+RUN mkdir /opt/opencv/build
+
+# Add cmake config
+COPY xcmake.sh /opt/opencv/build
+
+RUN cd /opt/opencv/build \
+   && chmod +x ./xcmake.sh && ./xcmake.sh \
    && make -j4 \
    && make install \
    && ldconfig
