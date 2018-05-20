@@ -1,60 +1,25 @@
-version: '2.1'
+# Project builder for resin.io devices
+# Configure with image tags for appropirate architectures
 
-#volumes:
-#  diana-data: {}
+version: 2.1
 
 services:
-  base:
-#    build:
-#      context: base
-#      dockerfile: x86/Dockerfile
-    build: ./base/arm7h
-    image: base
-    privileged: True
-    command: "/bin/bash"  # Exit immediately
 
-  # Can skip ssh in final build if useful by depending conda and orthanc directly on base
-  sshd:
-    build: ./sshd
-    image: sshd
-    depends_on:
-      - base
-    privileged: True
-    command: "/bin/bash"  # Exit immediately
+  orthanc:
+    image: derekmerck/orthanc:armv7_orthanc
+    init: true
+    restart: always
+    privileged: true
+    ports:
+      - "422:22"
+      - "4242:4242"
+      - "8042:8042"
 
   conda:
-    build: ./conda
-    image: conda
-    depends_on:
-      - sshd
-#    init: true
+    image: derekmerck/conda:armv7_conda
+    init: true
     restart: always
     privileged: true
     ports:
       - "322:22"
-
-#   volumes:
-#     - 'diana-data:/usr/src/app'
-
-
-# Can further derive from conda for specific services (diana-mon)
-
-  orthanc:
-    build: ./orthanc
-    image: orthanc
-    depends_on:
-      - sshd
-#    init: true
-    restart: always
-    privileged: True
-    ports:
-      - "480:8042"
-      - "442:4242"
-      - "422:22"
-
-#   volumes:
-#     - 'diana-data:/var/lib/orthanc/db'
-
-
-# Can further derive from orthanc for specific services (autorouting)
 

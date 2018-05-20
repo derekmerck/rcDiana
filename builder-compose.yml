@@ -1,0 +1,59 @@
+# Multi-architecture builder for rcdiana:conda and rcdiana:orthanc
+
+version: '2.2'
+
+services:
+  base:
+    build:
+      context: base
+#      dockerfile: x86/Dockerfile
+      dockerfile: armv7/Dockerfile
+    image: base
+#    privileged: True
+    command: "/bin/bash"  # Exit immediately
+
+  # Can skip ssh in final build if useful by depending conda and orthanc directly on base
+  sshd:
+    build: ./sshd
+    image: sshd
+    depends_on:
+      - base
+#    privileged: True
+    command: "/bin/bash"  # Exit immediately
+
+  conda:
+    build: ./conda
+    image: derekmerck/rcDIANA:armv7_conda
+    depends_on:
+      - sshd
+    init: true
+    restart: always
+    privileged: true
+    ports:
+      - "322:22"
+
+#   volumes:
+#     - 'diana-data:/usr/src/app'
+
+
+# Can further derive from conda for specific services (diana-mon)
+
+  orthanc:
+    build: ./orthanc
+    image: derekmerck/rcDIANA:armv7_orthanc
+    depends_on:
+      - sshd
+    init: true
+    restart: always
+    privileged: True
+    ports:
+      - "4080:8042"
+      - "4242:4242"
+      - "422:22"
+
+#   volumes:
+#     - 'diana-data:/var/lib/orthanc/db'
+
+
+# Can further derive from orthanc for specific services (autorouting)
+
