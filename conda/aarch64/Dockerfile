@@ -62,4 +62,4 @@ RUN wget --quiet "$CONDA_PKG" -O ~/conda.sh && \
     echo "source activate base" >> ~/.bashrc
 
 # In a new shell
-RUN conda update -y conda
+# RUN conda update -y conda
