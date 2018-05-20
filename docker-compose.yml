@@ -5,10 +5,11 @@ version: "2.1"
 
 services:
 
-  base:
-    build: ./base/aarch64
-    image: base
+  sshd:
+    build: ./sshd/aarch64
+    image: sshd
     privileged: True
+
 
 #  orthanc:
 #    image: derekmerck/rcdiana:${RCD_ARCH}_orthanc
