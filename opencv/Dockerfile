@@ -6,26 +6,26 @@ MAINTAINER Derek Merck <derek_merck@brown.edu>
 
 # Add cmake config
 COPY xcmake.sh /usr/src/app/
-
-# Install dependencies
-RUN apt-get update && apt-get install -yq --no-install-recommends \
-        build-essential \
-        cmake \
-        pkg-config \
-        libtiff5-dev \
-        libopenjp2-7-dev \
-        libpng-dev \
-        libavcodec-dev \
-        libavformat-dev \
-        libswscale-dev \
-        libv4l-dev \
-        libxvidcore-dev \
-        libx264-dev \
-        libgtk-3-dev \
-        libatlas-base-dev \
-        gfortran \
-        python2.7-dev \
-   && apt-get clean && rm -rf /var/lib/apt/lists/*
+#
+## Install dependencies
+#RUN apt-get update && apt-get install -yq --no-install-recommends \
+#        build-essential \
+#        cmake \
+#        pkg-config \
+#        libtiff5-dev \
+#        libopenjp2-7-dev \
+#        libpng-dev \
+#        libavcodec-dev \
+#        libavformat-dev \
+#        libswscale-dev \
+#        libv4l-dev \
+#        libxvidcore-dev \
+#        libx264-dev \
+#        libgtk-3-dev \
+#        libatlas-base-dev \
+#        gfortran \
+#        python2.7-dev \
+#   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Source pulls
 RUN mkdir /opt/opencv \
@@ -35,8 +35,8 @@ RUN mkdir /opt/opencv \
    && cd /opt/opencv/opencv; git checkout 3.4.1 \
    && cd /opt/opencv/opencv_contrib; git checkout 3.4.1 \
 
-RUN mkdir /opt/opencv/opencv/build \
-   && cd /opt/opencv/opencv/build \
+RUN mkdir /opt/build \
+   && cd /opt/build \
    && /bin/bash /usr/src/app/xcmake.sh \
    && make -j4 \
    && make install \
