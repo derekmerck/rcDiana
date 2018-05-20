@@ -1,13 +1,13 @@
 # Multi-architecture builder for rcdiana:conda and rcdiana:orthanc
 
+# set your env: $ export RCD_ARCH=x86 or RCD_ARCH=armv7
 version: '2.2'
 
 services:
   base:
     build:
       context: base
-#      dockerfile: x86/Dockerfile
-      dockerfile: armv7/Dockerfile
+      dockerfile: ${RCD_ARCH}/Dockerfile
     image: base
 #    privileged: True
     command: "/bin/bash"  # Exit immediately
@@ -23,7 +23,7 @@ services:
 
   conda:
     build: ./conda
-    image: derekmerck/rcdiana:armv7_conda
+    image: derekmerck/rcdiana:${RCD_ARCH}_conda
     depends_on:
       - sshd
     init: true
@@ -37,10 +37,9 @@ services:
 
 
 # Can further derive from conda for specific services (diana-mon)
-
   orthanc:
     build: ./orthanc
-    image: derekmerck/rcdiana:armv7_orthanc
+    image: derekmerck/rcdiana:${RCD_ARCH}_orthanc
     depends_on:
       - sshd
     init: true

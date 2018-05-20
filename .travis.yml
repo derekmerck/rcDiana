@@ -7,13 +7,17 @@ services:
 
 before_install:
 
-  # Setup armv7 cross-compiler, see https://blog.hypriot.com/post/setup-simple-ci-pipeline-for-arm-images/
+  # Setup armv7 docker cross-compiler
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
 
-  - docker-compose -f builder-compose.yml build
-
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker login
 
-  - docker push derekmerck/rcdiana:armv7_conda
-  - docker push derekmerck/rcdiana:armv7_orthanc
+  - export RCD_ARCH=armv7
+  - docker-compose -f builder-compose.yml build
+  - docker push derekmerck/rcdiana:${RCD_ARCH}_conda
+  - docker push derekmerck/rcdiana:${RCD_ARCH}_orthanc
+
+  - export RCD_ARCH=x86
+  - docker-compose -f builder-compose.yml build
+  - docker push derekmerck/rcdiana:${RCD_ARCH}_conda
+  - docker push derekmerck/rcdiana:${RCD_ARCH}_orthanc
