@@ -29,4 +29,5 @@ RUN wget --quiet "$CONDA_PKG" -O ~/conda.sh && \
     echo "source activate base" >> ~/.bashrc
 
 # In a new shell
-RUN conda update -y conda
+# Path not set right in aarch64
+# RUN conda update -y conda
