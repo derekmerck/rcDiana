@@ -10,11 +10,13 @@ A remotely configured DIANA service stack, suitable for use with [resin.io][]
 <http://github.com/derekmerck/rcDIANA>  
 <https://hub.docker.com/r/derekmerck/rcdiana/>
 
-[resin.io]: http://resin.io)
+[resin.io]: (http://resin.io)
 
 
 Usage
 ---------------
+
+With docker-compose:
 
 ``` bash
 $ git clone https://www.github.com/derekmerck/rcDiana
@@ -22,13 +24,19 @@ $ cd rcDiana
 $ docker-compose up
 ```
 
+Directly accessing the images:
+
+```bash
+$ docker run derekmerck/rcdiana:armv7_orthanc
+```
+
 Content
 ---------------
 
 rcDIANA has two types of nodes, and each is compiled for x86 and armv7 architectures.
 
-- DICOM nodes using [Orthanc][] (orthanc_armv7)
-- Python compute nodes using [Conda][] (conda_armv7)
+- DICOM nodes using [Orthanc][]
+- Python compute nodes using [Conda][]
 
 armv7 is no longer supported by Continuum, so the armv7 build uses [BerryConda][].
 
