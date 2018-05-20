@@ -6,6 +6,10 @@ services:
   - docker
 
 before_install:
+
+  # Setup armv7 cross-compiler, see https://blog.hypriot.com/post/setup-simple-ci-pipeline-for-arm-images/
+  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+
   - docker-compose -f builder-compose.yml build
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
