@@ -7,7 +7,7 @@ services:
 
   orthanc:
     image: derekmerck/orthanc:armv7_orthanc
-    init: true
+#    init: true
     restart: always
     privileged: true
     ports:
@@ -17,7 +17,7 @@ services:
 
   conda:
     image: derekmerck/conda:armv7_conda
-    init: true
+#    init: true
     restart: always
     privileged: true
     ports:
