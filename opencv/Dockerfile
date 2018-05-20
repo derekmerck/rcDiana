@@ -32,11 +32,12 @@ RUN mkdir /opt/opencv \
    && cd /opt/opencv \
    && git clone https://github.com/opencv/opencv.git \
    && git clone https://github.com/opencv/opencv_contrib.git \
-   && cd /opt/opencv/opencv; git checkout 3.4.1 \
-   && cd /opt/opencv/opencv_contrib; git checkout 3.4.1 \
-
-RUN mkdir /opt/build \
-   && cd /opt/build \
+   && cd /opt/opencv/opencv \
+   && git checkout 3.4.1 \
+   && cd /opt/opencv/opencv_contrib \
+   && git checkout 3.4.1 \
+   && mkdir /opt/opencv/build \
+   && cd /opt/opencv/build \
    && /bin/bash /usr/src/app/xcmake.sh \
    && make -j4 \
    && make install \
