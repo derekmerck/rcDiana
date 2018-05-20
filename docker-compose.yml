@@ -10,7 +10,7 @@ services:
     image: conda
     privileged: True
 
-  conda:
+  orthanc:
     build: ./orthanc/aarch64
     image: orthanc
     privileged: True
