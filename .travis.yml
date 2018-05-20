@@ -12,18 +12,13 @@ env:
 
 before_install:
 
-  script:
-    # Setup armv7 docker cross-compiler
-    - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-    - docker-compose -f builder-compose.yml build
+  # Setup armv7 docker cross-compiler
+  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  - docker-compose -f builder-compose.yml build
 
-deploy:
-  skip_cleanup: true
+  # Login to docker for push
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
-  script:
-    # Login to docker for push
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-
-    # Push artifacts to repo
-    - docker push derekmerck/rcdiana:${RCD_ARCH}_conda
-    - docker push derekmerck/rcdiana:${RCD_ARCH}_orthanc
+  # Push artifacts to repo
+  - docker push derekmerck/rcdiana:${RCD_ARCH}_conda
+  - docker push derekmerck/rcdiana:${RCD_ARCH}_orthanc
