@@ -26,7 +26,7 @@ RUN wget --quiet "$CONDA_PKG" -O ~/conda.sh && \
     rm ~/conda.sh && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
-    echo "conda activate base" >> ~/.bashrc
+    echo "source activate base" >> ~/.bashrc
 
 # In a new shell
 RUN conda update -y conda

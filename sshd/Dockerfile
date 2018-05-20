@@ -15,4 +15,4 @@ RUN mkdir /var/run/sshd \
 
 EXPOSE 22
 
-COPY ./conf*.sh /usr/src/app/config
+COPY ./conf*.sh /usr/src/app/config/

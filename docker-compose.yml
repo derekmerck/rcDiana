@@ -6,8 +6,8 @@ version: "2.1"
 services:
 
   sshd:
-    build: ./sshd/aarch64
-    image: sshd
+    build: ./conda/aarch64
+    image: conda
     privileged: True
 
 

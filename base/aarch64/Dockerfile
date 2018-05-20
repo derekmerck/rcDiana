@@ -7,7 +7,7 @@ RUN echo ". <(xargs -0 bash -c 'printf \"export %q\n\" \"\$@\"' -- < /proc/1/env
 
 COPY ./conf*.sh /usr/src/app/config/
 
-COPY ./start.sh /usr/src/app
+COPY ./start.sh /usr/src/app/
 CMD /bin/bash /usr/src/app/start.sh
 
 ARG RCD_ARCH
