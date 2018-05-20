@@ -5,11 +5,15 @@ version: "2.1"
 
 services:
 
-  sshd:
+  conda:
     build: ./conda/aarch64
     image: conda
     privileged: True
 
+  conda:
+    build: ./orthanc/aarch64
+    image: orthanc
+    privileged: True
 
 #  orthanc:
 #    image: derekmerck/rcdiana:${RCD_ARCH}_orthanc
