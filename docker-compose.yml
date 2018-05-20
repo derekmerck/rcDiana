@@ -7,8 +7,6 @@ services:
 
   base:
     build: base/aarch64/Dockerfile
-      args:
-        - RCD_ARCH=aarch64  # Pass env into Dockerfile for substition
     image: base
     privileged: True
 

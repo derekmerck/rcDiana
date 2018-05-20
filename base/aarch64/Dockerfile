@@ -11,7 +11,8 @@ COPY ./start.sh /usr/src/app
 CMD /bin/bash /usr/src/app/start.sh
 
 ARG RCD_ARCH
-ENV RESIN_DEVICE_NAME_AT_INIT rcDiana-$RCD_ARCH
+#ENV RESIN_DEVICE_NAME_AT_INIT rcDiana-$RCD_ARCH
+ENV RESIN_DEVICE_NAME_AT_INIT rcDiana-aarch64
 RUN echo "Building base for $RESIN_DEVICE_NAME_AT_INIT"
 
 ENV ORTHANC_PASSWORD 0rthanC!
