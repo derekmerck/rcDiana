@@ -4,6 +4,9 @@ ARG RCD_ARCH
 FROM derekmerck/rcdiana:${RCD_ARCH}_conda
 MAINTAINER Derek Merck <derek_merck@brown.edu>
 
+# Add cmake config
+COPY xcmake.sh /usr/src/app/
+
 # Install dependencies
 RUN apt-get update && apt-get install -yq --no-install-recommends \
         build-essential \
@@ -22,7 +25,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
         libatlas-base-dev \
         gfortran \
         python2.7-dev \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+   && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Source pulls
 RUN mkdir /opt/opencv \
@@ -32,14 +35,9 @@ RUN mkdir /opt/opencv \
    && cd /opt/opencv/opencv; git checkout 3.4.1 \
    && cd /opt/opencv/opencv_contrib; git checkout 3.4.1 \
 
-# Do a long make
-RUN mkdir /opt/opencv/build
-
-# Add cmake config
-COPY xcmake.sh /opt/opencv/build
-
-RUN cd /opt/opencv/build \
-   && chmod +x ./xcmake.sh && ./xcmake.sh \
+RUN mkdir /opt/opencv/opencv/build \
+   && cd /opt/opencv/opencv/build \
+   && /bin/bash /usr/src/app/xcmake.sh \
    && make -j4 \
    && make install \
    && ldconfig
@@ -47,3 +45,5 @@ RUN cd /opt/opencv/build \
 #RUN ln -s \
 #    /usr/local/lib/python2.7/site-packages/cv2.cpython-36m-x86_64-linux-gnu.so \
 #    $HOME/.conda/envs/base/lib/python3.6/site-packages/cv2.so
+
+#RUN rm -rf /opt/opencv
