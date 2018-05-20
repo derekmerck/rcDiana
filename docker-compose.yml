@@ -1,12 +1,12 @@
 # Project builder for resin.io devices
-# Configure with image tags for appropirate architectures
+# Configure with image tags for appropriate architectures
 
-version: 2.1
+version: "2.1"
 
 services:
 
   orthanc:
-    image: derekmerck/rcdiana:armv7_orthanc
+    image: derekmerck/rcdiana:${RCD_ARCH}_orthanc
 #    init: true
     restart: always
     privileged: true
@@ -16,7 +16,7 @@ services:
       - "8042:8042"
 
   conda:
-    image: derekmerck/rcdiana:armv7_conda
+    image: derekmerck/rcdiana:${RCD_ARCH}_conda
 #    init: true
     restart: always
     privileged: true

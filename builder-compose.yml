@@ -1,6 +1,6 @@
 # Multi-architecture builder for rcdiana:conda and rcdiana:orthanc
 
-# set your env: $ export RCD_ARCH=x86 or RCD_ARCH=armv7
+# set your env: $ export RCD_ARCH=amd64 / armv7hf / aarch64
 version: '2.2'
 
 services:
@@ -8,6 +8,8 @@ services:
     build:
       context: base
       dockerfile: ${RCD_ARCH}/Dockerfile
+      args:
+        - RCD_ARCH  # Pass env into Dockerfile for substition
     image: base
 #    privileged: True
     command: "/bin/bash"  # Exit immediately

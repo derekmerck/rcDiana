@@ -7,8 +7,8 @@ services:
 
 # Setup build matrix
 env:
-  - RCD_ARCH=x86
-  - RCD_ARCH=armv7
+  - RCD_ARCH=amd64
+  - RCD_ARCH=armv7hf
 
 before_install:
 
@@ -20,5 +20,8 @@ before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
   # Push artifacts to repo
-  - docker push derekmerck/rcdiana:${RCD_ARCH}_conda
-  - docker push derekmerck/rcdiana:${RCD_ARCH}_orthanc
+  - docker tag "rcdiana:${RCD_ARCH}_conda" "$DOCKER_USERNAME/rcdiana:${RCD_ARCH}_conda"
+  - docker push "$DOCKER_USERNAME/rcdiana:${RCD_ARCH}_conda"
+
+  - docker tag "rcdiana:${RCD_ARCH}_orthanc" "$DOCKER_USERNAME/rcdiana:${RCD_ARCH}_orthanc"
+  - docker push "$DOCKER_USERNAME/rcdiana:${RCD_ARCH}_orthanc"

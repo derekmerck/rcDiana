@@ -23,7 +23,7 @@ Usage
 Directly:
 
 ```bash
-$ docker run derekmerck/rcdiana:armv7_orthanc
+$ docker run derekmerck/rcdiana:armv7hf_orthanc
 ```
 
 Or with `docker-compose`:
@@ -38,12 +38,12 @@ $ docker-compose up
 Content
 ---------------
 
-rcDIANA is based on Debian stretch, and provides two types of nodes for both x86 and armv7 architectures.
+rcDIANA is based on Debian stretch, and provides two types of nodes for `amd64` (Intel), `armv7hf` (Raspberry Pi 3), and `aarch64` (Jetson TX2) architectures.
 
-- DICOM nodes using [Orthanc][] (armv7_orthanc/x86_orthanc)
-- Python compute nodes using [Conda][] (armv7_conda/x86_conda)
+- DICOM nodes using [Orthanc][] (amd64/armv7hf/aarch64_orthanc)
+- Python compute nodes using [Conda][] (amd64/armv7hf/aarch64_orthanc_conda)
 
-Because armv7 is no longer supported by Continuum as of 2015, rcDIANA uses [BerryConda][].
+Because `armv7hf` is no longer supported by Continuum as of 2015, rcDIANA uses [BerryConda][].
 
 Because resin.io provides a limited toolset on the host os, both node-types have built-in open-ssh servers for interactive sessions.
 
@@ -57,7 +57,7 @@ Configuration
 
 The base images respect 3 built-in environment variables:
 
-- `RESIN_DEVICE_NAME_AT_INIT` (default: rcDiana-x86/armv7) (Provides the web interface title for Orthanc)
+- `RESIN_DEVICE_NAME_AT_INIT` (default: rcDiana-amd64/armv7hf/aarch64) (Provides the web interface title for Orthanc)
 - `ORTHANC_PASSWORD` (default: 0rthanC!)
 - `ROOT_PASSWORD` (default: passw0rd!)
 
@@ -75,11 +75,11 @@ Building
 Invoke a build:
 
 ```
-$ export RCD_ARCH=armv7
+$ export RCD_ARCH=armv7hf
 $ docker-compose -f builder-compose build
 ```
 
-Note the build-recipe filename is `builder-compose.yml`; the default `docker-compose.yml` file is reserved by resin.io for deployment pushes.  Note as well that the x86 images are not pre-configured with resin's init system or shell-access to environment variables.
+Note the build-recipe filename is `builder-compose.yml`; the default `docker-compose.yml` file is reserved by resin.io for deployment pushes.  Note as well that the amd64 images are not pre-configured with resin's init system or shell-access to environment variables.
 
 Update builds are automated with [Travis CI][].  Multi-archicture cross-compiling is done using [qemu-user-static](https://github.com/multiarch/qemu-user-static) following this post: <https://blog.hypriot.com/post/setup-simple-ci-pipeline-for-arm-images/>
 
