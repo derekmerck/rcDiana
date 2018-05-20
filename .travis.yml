@@ -5,19 +5,25 @@ language: python
 services:
   - docker
 
+# Setup build matrix
+env:
+  - RCD_ARCH=x86
+  - RCD_ARCH=armv7
+
 before_install:
 
-  # Setup armv7 docker cross-compiler
-  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  script:
+    # Setup armv7 docker cross-compiler
+    - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+    - docker-compose -f builder-compose.yml build
 
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+deploy:
+  skip_cleanup: true
 
-  - export RCD_ARCH=armv7
-  - docker-compose -f builder-compose.yml build
-  - docker push derekmerck/rcdiana:${RCD_ARCH}_conda
-  - docker push derekmerck/rcdiana:${RCD_ARCH}_orthanc
+  script:
+    # Login to docker for push
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
-  - export RCD_ARCH=x86
-  - docker-compose -f builder-compose.yml build
-  - docker push derekmerck/rcdiana:${RCD_ARCH}_conda
-  - docker push derekmerck/rcdiana:${RCD_ARCH}_orthanc
+    # Push artifacts to repo
+    - docker push derekmerck/rcdiana:${RCD_ARCH}_conda
+    - docker push derekmerck/rcdiana:${RCD_ARCH}_orthanc

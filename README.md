@@ -1,22 +1,32 @@
 rcDIANA
 ==================
 Derek Merck <derek_merck@brown.edu>
+Brown University and Rhode Island Hospital  
+Spring 2018
+
+Source: <http://github.com/derekmerck/rcDIANA>  
+Docker Hub: <https://hub.docker.com/r/derekmerck/rcdiana/>
+
 
 Overview
 ---------------
 
-A remotely configured DIANA service stack, suitable for use with [resin.io][]
+A remotely configured [DIANA][] service stack, suitable for multi-architecture use with [resin.io][].
 
-<http://github.com/derekmerck/rcDIANA>  
-<https://hub.docker.com/r/derekmerck/rcdiana/>
-
-[resin.io]: (http://resin.io)
+[DIANA]: https://diana.readthedocs.io
+[resin.io]: http://resin.io
 
 
 Usage
 ---------------
 
-With docker-compose:
+Directly:
+
+```bash
+$ docker run derekmerck/rcdiana:armv7_orthanc
+```
+
+Or with `docker-compose`:
 
 ``` bash
 $ git clone https://www.github.com/derekmerck/rcDiana
@@ -24,33 +34,62 @@ $ cd rcDiana
 $ docker-compose up
 ```
 
-Directly accessing the images:
-
-```bash
-$ docker run derekmerck/rcdiana:armv7_orthanc
-```
 
 Content
 ---------------
 
-rcDIANA has two types of nodes, and each is compiled for x86 and armv7 architectures.
+rcDIANA is based on Debian stretch, and provides two types of nodes for both x86 and armv7 architectures.
 
-- DICOM nodes using [Orthanc][]
-- Python compute nodes using [Conda][]
+- DICOM nodes using [Orthanc][] (armv7_orthanc/x86_orthanc)
+- Python compute nodes using [Conda][] (armv7_conda/x86_conda)
 
-armv7 is no longer supported by Continuum, so the armv7 build uses [BerryConda][].
+Because armv7 is no longer supported by Continuum as of 2015, rcDIANA uses [BerryConda][].
 
-Both node-types have built-in sshd servers for interactive sessions.
+Because resin.io provides a limited toolset on the host os, both node-types have built-in open-ssh servers for interactive sessions.
 
 [Orthanc]: http://www.orthanc-server.com
 [Conda]: http://www.anaconda.org
 [BerryConda]: https://github.com/jjhelmus/berryconda
 
-Builds
+
+Configuration
 ------------------
 
-Builds are automated on [Travis CI][].
+The base images respect 3 built-in environment variables:
 
-Multi-arch cross-compiling is done using [qemu-user-static](https://github.com/multiarch/qemu-user-static) following this post: <https://blog.hypriot.com/post/setup-simple-ci-pipeline-for-arm-images/>
+- `RESIN_DEVICE_NAME_AT_INIT` (default: rcDiana-x86/armv7) (Provides the web interface title for Orthanc)
+- `ORTHANC_PASSWORD` (default: 0rthanC!)
+- `ROOT_PASSWORD` (default: passw0rd!)
+
+Ports:
+
+- The conda image exposes port 22 (ssh)
+- The orthanc image exposes ports 22 (ssh), 4242 (DICOM), 8042 (http)
+
+As always, when running combinations of containers for multiple tasks, be sure to remap container ports to different host ports (or accept randomly assigned Docker default mappings).
+
+
+Building
+------------------
+
+Invoke a build:
+
+```
+$ export RCD_ARCH=armv7
+$ docker-compose -f builder-compose build
+```
+
+Note the build-recipe filename is `builder-compose.yml`; the default `docker-compose.yml` file is reserved by resin.io for deployment pushes.  Note as well that the x86 images are not pre-configured with resin's init system or shell-access to environment variables.
+
+Update builds are automated with [Travis CI][].  Multi-archicture cross-compiling is done using [qemu-user-static](https://github.com/multiarch/qemu-user-static) following this post: <https://blog.hypriot.com/post/setup-simple-ci-pipeline-for-arm-images/>
 
 [Travis CI]: https://travis-ci.org
+
+To build the `conda` image with a different Conda distribution, such as Continuum's Python 2.7.10 armv7 release, override the environment variable `CONDA_PKG` to the appropriate download location at build-time.
+
+The most recent Continuum miniconda can be found at <https://repo.continuum.io/miniconda/Miniconda-3.16.0-Linux-armv7l.sh>
+
+
+## License
+
+MIT

@@ -23,7 +23,7 @@ services:
 
   conda:
     build: ./conda
-    image: derekmerck/rcdiana:${RCD_ARCH}_conda
+    image: rcdiana:${RCD_ARCH}_conda
     depends_on:
       - sshd
     init: true
@@ -39,7 +39,7 @@ services:
 # Can further derive from conda for specific services (diana-mon)
   orthanc:
     build: ./orthanc
-    image: derekmerck/rcdiana:${RCD_ARCH}_orthanc
+    image: rcdiana:${RCD_ARCH}_orthanc
     depends_on:
       - sshd
     init: true

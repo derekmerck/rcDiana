@@ -13,5 +13,3 @@ ENV CONDA_PKG https://repo.continuum.io/miniconda/Miniconda2-4.4.10-Linux-x86_64
 
 # CMD service ssh start && tail -F /dev/null
 # CMD ["sh", "-c", "tail -f /dev/null"]
-
-
