@@ -28,7 +28,7 @@ $ docker run derekmerck/rcdiana:armv7hf_orthanc
 
 Or with `docker-compose`:
 
-``` bash
+```bash
 $ git clone https://www.github.com/derekmerck/rcDiana
 $ cd rcDiana
 $ docker-compose up
@@ -74,7 +74,7 @@ Building
 
 Invoke a build:
 
-```
+```bash
 $ export RCD_ARCH=armv7hf
 $ docker-compose -f builder-compose build
 ```
@@ -89,6 +89,14 @@ To build the `conda` image with a different Conda distribution, such as Continuu
 
 The most recent Continuum miniconda can be found at <https://repo.continuum.io/miniconda/Miniconda-3.16.0-Linux-armv7l.sh>
 
+
+### Compiling Conda for aarch64
+
+```bash
+$ mkdir /tmp/pkg
+$ docker build -t pkg ./conda_aarch64_pkg
+$ docker run -it -v "/tmp/pkg:/host/pkg" pkg
+```
 
 ## License
 

@@ -5,21 +5,27 @@ version: "2.1"
 
 services:
 
-  orthanc:
-    image: derekmerck/rcdiana:${RCD_ARCH}_orthanc
-#    init: true
-    restart: always
-    privileged: true
-    ports:
-      - "422:22"
-      - "4242:4242"
-      - "8042:8042"
+  base:
+    build: base/aarch64/Dockerfile
+      args:
+        - RCD_ARCH  # Pass env into Dockerfile for substition
+    image: base
+    privileged: True
 
-  conda:
-    image: derekmerck/rcdiana:${RCD_ARCH}_conda
-#    init: true
-    restart: always
-    privileged: true
-    ports:
-      - "322:22"
-
+#  orthanc:
+#    image: derekmerck/rcdiana:${RCD_ARCH}_orthanc
+##    init: true
+#    restart: always
+#    privileged: true
+#    ports:
+#      - "422:22"
+#      - "4242:4242"
+#      - "8042:8042"
+#
+#  conda:
+#    image: derekmerck/rcdiana:${RCD_ARCH}_conda
+##    init: true
+#    restart: always
+#    privileged: true
+#    ports:
+#      - "322:22"
