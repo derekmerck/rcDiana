@@ -53,4 +53,4 @@ Builds are automated on [Travis CI][].
 
 Multi-arch cross-compiling is done using [qemu-user-static](https://github.com/multiarch/qemu-user-static) following this post: <https://blog.hypriot.com/post/setup-simple-ci-pipeline-for-arm-images/>
 
-[Travis_CI]: https://travis-ci.org
+[Travis CI]: https://travis-ci.org
