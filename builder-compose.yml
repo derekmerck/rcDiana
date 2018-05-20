@@ -23,7 +23,7 @@ services:
 
   conda:
     build: ./conda
-    image: derekmerck/rcDIANA:armv7_conda
+    image: derekmerck/rcdiana:armv7_conda
     depends_on:
       - sshd
     init: true
@@ -40,7 +40,7 @@ services:
 
   orthanc:
     build: ./orthanc
-    image: derekmerck/rcDIANA:armv7_orthanc
+    image: derekmerck/rcdiana:armv7_orthanc
     depends_on:
       - sshd
     init: true
