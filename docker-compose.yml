@@ -1,5 +1,10 @@
 # Project builder for resin.io devices
 # Configure with image tags for appropriate architectures
+# Note, resin does not have a way to set RCD_ARCH, so set it manually
+
+version: '2.1'
+
+services:
 
   orthanc:
     image: derekmerck/rcdiana:${RCD_ARCH}_orthanc

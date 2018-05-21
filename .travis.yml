@@ -8,21 +8,24 @@ services:
 # Setup build matrix
 env:
 #  - RCD_ARCH=aarch64  # Jetson TX2
-#  - RCD_ARCH=amd64 RCD_TARGET=conda
-#  - RCD_ARCH=amd64 RCD_TARGET=orthanc
-  - RCD_ARCH=amd64 RCD_TARGET=opencv
-
-#  - RCD_ARCH=armv7hf  # Raspberry Pi 3
+  - RCD_ARCH=amd64
+  - RCD_ARCH=armv7hf  # Raspberry Pi 3
 
 script:
 
   # Setup armv7 docker cross-compiler
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
-  - docker-compose -f builder-compose.yml build $RCD_TARGET
+  - docker-compose -f builder-compose.yml build
 
   # Login to docker for push
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
   # Push artifacts to repo
-  - docker tag "rcdiana:${RCD_ARCH}_${RCD_TARGET}" "$DOCKER_USERNAME/rcdiana:${RCD_ARCH}_${RCD_TARGET}"
-  - docker push "$DOCKER_USERNAME/rcdiana:${RCD_ARCH}_${RCD_TARGET}"
+  - docker tag "rcdiana:${RCD_ARCH}_orthanc" "$DOCKER_USERNAME/rcdiana:${RCD_ARCH}_orthanc"
+  - docker push "$DOCKER_USERNAME/rcdiana:${RCD_ARCH}_orthanc"
+
+  - docker tag "rcdiana:${RCD_ARCH}_conda" "$DOCKER_USERNAME/rcdiana:${RCD_ARCH}_conda"
+  - docker push "$DOCKER_USERNAME/rcdiana:${RCD_ARCH}_conda"
+
+  - docker tag "rcdiana:${RCD_ARCH}_keras" "$DOCKER_USERNAME/rcdiana:${RCD_ARCH}_keras"
+  - docker push "$DOCKER_USERNAME/rcdiana:${RCD_ARCH}_keras"

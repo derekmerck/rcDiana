@@ -29,5 +29,6 @@ RUN wget --quiet "$CONDA_PKG" -O ~/conda.sh && \
     echo "source activate base" >> ~/.bashrc
 
 # In a new shell
-# Path not set right in aarch64
+# Conda is _missing_ from JetsonConda
 RUN conda update -y conda || echo "Error: Failed to update conda (check path?)"
+RUN pip install --upgrade pip

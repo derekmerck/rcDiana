@@ -1,6 +1,6 @@
 # Multi-architecture builder for rcdiana:conda and rcdiana:orthanc
 
-# set your env: $ export RCD_ARCH=amd64 / armv7hf / aarch64
+# set your env: $ export RCD_ARCH=amd64 / armv7hf / aarch64 <- untested
 version: '2.2'
 
 services:
@@ -23,6 +23,7 @@ services:
 #    privileged: True
     command: "/bin/bash"  # Exit immediately
 
+  # conda doesn't work properly on aarch64, some packages missing
   conda:
     build: ./conda
     image: rcdiana:${RCD_ARCH}_conda
@@ -33,6 +34,17 @@ services:
     privileged: true
     ports:
       - "322:22"
+
+  keras:
+    build: ./keras
+    image: rcdiana:${RCD_ARCH}_keras
+    depends_on:
+      - conda
+    init: true
+    restart: always
+    privileged: true
+    ports:
+      - "522:22"
 
 #   volumes:
 #     - 'diana-data:/usr/src/app'
@@ -52,20 +64,21 @@ services:
       - "4242:4242"
       - "422:22"
 
-  opencv:
-    build:
-      context: ./opencv
-      args:
-        - RCD_ARCH
-    image: rcdiana:${RCD_ARCH}_opencv
-#    depends_on:
-#      - conda    init: true
-    restart: always
-    privileged: true
+# Can further derive from orthanc for specific services (autorouting)
+
+
+# Building opencv from scratch times out on travis, better to use menlo
+#  opencv:
+#    build:
+#      context: ./opencv
+#      args:
+#        - RCD_ARCH
+#    image: rcdiana:${RCD_ARCH}_opencv
+##    depends_on:
+##      - conda    init: true
+#    restart: always
+#    privileged: true
 
 #   volumes:
 #     - 'diana-data:/var/lib/orthanc/db'
-
-
-# Can further derive from orthanc for specific services (autorouting)
 
