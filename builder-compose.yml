@@ -6,7 +6,7 @@ version: '2.2'
 services:
   base:
     build:
-      context: base
+      context: ./base
       dockerfile: ${RCD_ARCH}/Dockerfile
       args:
         - RCD_ARCH  # Pass env into Dockerfile for substition
@@ -16,7 +16,10 @@ services:
 
   # Can skip ssh in final build if useful by depending conda and orthanc directly on base
   sshd:
-    build: ./sshd
+    build:
+      context: ./sshd
+      args:
+        - RCD_ARCH  # Pass env into Dockerfile for substition
     image: rcdiana:${RCD_ARCH}_sshd
     depends_on:
       - base
@@ -25,7 +28,10 @@ services:
 
   # conda doesn't work properly on aarch64, some packages missing
   conda:
-    build: ./conda
+    build:
+      context: ./conda
+      args:
+        - RCD_ARCH  # Pass env into Dockerfile for substition
     image: rcdiana:${RCD_ARCH}_conda
     depends_on:
       - sshd
@@ -36,7 +42,10 @@ services:
       - "322:22"
 
   keras:
-    build: ./keras
+    build:
+      context: ./keras
+      args:
+        - RCD_ARCH  # Pass env into Dockerfile for substition
     image: rcdiana:${RCD_ARCH}_keras
     depends_on:
       - conda
@@ -46,11 +55,6 @@ services:
     ports:
       - "522:22"
 
-#   volumes:
-#     - 'diana-data:/usr/src/app'
-
-
-# Can further derive from conda for specific services (diana-mon)
   orthanc:
     build: ./orthanc
     image: rcdiana:${RCD_ARCH}_orthanc
@@ -63,8 +67,6 @@ services:
       - "4080:8042"
       - "4242:4242"
       - "422:22"
-
-# Can further derive from orthanc for specific services (autorouting)
 
 
 # Building opencv from scratch times out on travis, better to use menlo
