@@ -22,4 +22,12 @@ services:
     restart: always
     privileged: true
     ports:
-      - "322:22"
+      - "522:22"
+
+  keras:
+    image: derekmerck/rcdiana:${RCD_ARCH}_keras
+#    init: true
+    restart: always
+    privileged: true
+    ports:
+      - "622:22"

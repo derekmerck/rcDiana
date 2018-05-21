@@ -1,4 +1,4 @@
-FROM sshd
+FROM rcdiana:${RCD_ARCH}_sshd
 MAINTAINER Derek Merck <derek_merck@brown.edu>
 
 # Install apt dependencies and remove the apt lists, which reduces

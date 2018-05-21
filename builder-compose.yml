@@ -10,14 +10,14 @@ services:
       dockerfile: ${RCD_ARCH}/Dockerfile
       args:
         - RCD_ARCH  # Pass env into Dockerfile for substition
-    image: base
+    image: rcdiana:${RCD_ARCH}_base
 #    privileged: True
     command: "/bin/bash"  # Exit immediately
 
   # Can skip ssh in final build if useful by depending conda and orthanc directly on base
   sshd:
     build: ./sshd
-    image: sshd
+    image: rcdiana:${RCD_ARCH}_sshd
     depends_on:
       - base
 #    privileged: True
