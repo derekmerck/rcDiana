@@ -1,5 +1,4 @@
 # Following http://alexsm.com/building-opencv-with-conda
-# FROM conda
 ARG RCD_ARCH
 FROM derekmerck/rcdiana:${RCD_ARCH}_conda
 MAINTAINER Derek Merck <derek_merck@brown.edu>

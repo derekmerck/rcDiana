@@ -1,3 +1,4 @@
+ARG RCD_ARCH
 FROM rcdiana:${RCD_ARCH}_conda
 MAINTAINER Derek Merck <derek_merck@brown.edu>
 
