@@ -1,3 +1,4 @@
+# Somewhat following https://github.com/gw0/docker-keras
 ARG RCD_ARCH
 FROM rcdiana:${RCD_ARCH}_conda
 MAINTAINER Derek Merck <derek_merck@brown.edu>
@@ -27,6 +28,6 @@ RUN pip --no-cache-dir install --no-dependencies git+https://github.com/fchollet
 ENV MKL_THREADING_LAYER=GNU
 
 # quick test and dump package lists
-RUN python -c "import theano; print(theano.__version__)" \
+RUN python -c "import tensorflow; print(tensorflow.__version__)" \
  && dpkg-query -l > /dpkg-query-l.txt \
  && pip freeze > /pip-freeze.txt
