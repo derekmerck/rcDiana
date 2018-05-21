@@ -56,7 +56,10 @@ services:
       - "522:22"
 
   orthanc:
-    build: ./orthanc
+    build:
+      context: ./orthanc
+      args:
+        - RCD_ARCH  # Pass env into Dockerfile for substition
     image: rcdiana:${RCD_ARCH}_orthanc
     depends_on:
       - sshd
