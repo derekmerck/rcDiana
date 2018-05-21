@@ -5,10 +5,12 @@ MAINTAINER Derek Merck <derek_merck@brown.edu>
 
 RUN apt-get update && apt-get install -yq --no-install-recommends \
         build-essential \
+        libopenblas-base \
         python2.7-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN conda install scipy blas mkl-service pydot-ng h5py \
+# CAN INSTALL BLAS THROUGH CONDA ON AMD64, BUT NO BLAS IN BERRYCONDA?
+RUN conda install scipy mkl-service pydot-ng h5py \
    && pip install parameterized
 
 #ARG THEANO_VERSION=1.0.1
